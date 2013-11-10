@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>project-x</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
+</head>
+<body>
+  <form action="/msg" method="post">
+    <label>
+      <span>Message:</span>
+      <input type="text" name="message" placeholder="what's on your mind?" />
+    </label>
+  </form>
+  <ul id="messages">
+  </ul>
+  <script type="text/javascript">
+    var form = document.querySelector('form'),
+        ul = document.querySelector('#messages'),
+        message = document.querySelector('input[name="message"]');
+
+    function handleResponse(resp){
+      var response = JSON.parse(resp)
+      if (response.message){
+        renderMessage(response.message)
+      }
+    }
+    
+    function renderMessage(msg){
+      ul.insertAdjacentHTML('beforebegin','<li>'+msg+'</li>');
+    }
+
+    console.log(form)
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault()
+      e.stopPropagation()
+
+      var xhr = new XMLHttpRequest(),
+          url = [window.location.origin, 'msg'].join('/'),
+          formData = new FormData (e.target);
+
+      console.log(formData)
+      xhr.onreadystatechange = function(e){
+        if (xhr.readyState === 4){
+          handleResponse(xhr.response)
+        }
+      }
+
+      xhr.open('POST', url)
+      xhr.send(formData)
+    })
+  </script>
+</body>
+</html>
