@@ -1,8 +1,14 @@
-{
-  "name": "node-example",
+ {
+  "name": "project-x",
   "version": "0.0.1",
+  "private": true,
   "dependencies": {
-    "express": "3.4.x"
+    "express": "3.4.x",
+    "stylus": "0.31.0",
+    "jade": "0.27.7",
+    "moment" : "1.7.2",
+    "emailjs": "0.3.3",
+    "socket.io": "0.9"
   },
   "engines": {
     "node": "0.10.x",
